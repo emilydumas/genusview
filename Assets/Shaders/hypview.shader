@@ -56,8 +56,12 @@
 				} else {
 					float3 v = fromklein(xy);
 					vect_in_fund vf = tofund(v);
-					float2 uv = six_panel_vif_to_uv(vf);
-					col = tex2D(_MainTex,uv);
+					if (vf.coset == 255){
+						col = tex2D(_MainTex,float2(0.1,0.6));
+					} else {
+						float2 uv = six_panel_vif_to_uv(vf);
+						col = tex2D(_MainTex,uv);
+					}
 				}
 
 				// apply fog
