@@ -48,21 +48,19 @@
 
 			fixed4 frag (v2f i) : SV_Target
 			{
-				fixed4 col;
 				float2 xy = 2.0*(i.uv - float2(0.5,0.5));
+				float2 uv = float2(0,0);
 
-				if (length(xy) >= 1.0) {
-					col = tex2D(_MainTex,float2(0,0));
-				} else {
+				UNITY_BRANCH
+				if (length(xy) < 1.0) {
 					float3 v = fromklein(xy);
 					vect_in_fund vf = tofund(v);
-					if (vf.coset == 255){
-						col = tex2D(_MainTex,float2(0.1,0.6));
-					} else {
-						float2 uv = six_panel_vif_to_uv(vf);
-						col = tex2D(_MainTex,uv);
+					if (vf.coset != 255) {
+						uv = six_panel_vif_to_uv(vf);
 					}
 				}
+
+				fixed4 col = tex2D(_MainTex,uv);
 
 				// apply fog
 				UNITY_APPLY_FOG(i.fogCoord, col);
