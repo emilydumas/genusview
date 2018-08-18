@@ -62,21 +62,31 @@ vect_in_fund tofund(float3 v0)
 
     while (i<10) {
         int k;
-        if (minkdot(ret.v,sides[0]) <= 0)
-        {
-            ret.v = mul(reflections[0],ret.v);
-            ret.coset = perms[0][ret.coset];
-        } else {
+        for (k=0;k<4;k++) {
+            if (minkdot(ret.v,sides[k]) < 0) {
+                ret.v = mul(reflections[k],ret.v);
+                ret.coset = perms[k][ret.coset];
+                break;
+            }
+        }
+        if (k == 4) {
+            // No reflections were applied. Success.
+            // But the coset label is inverted; fix that.
             ret.coset = s3inv[ret.coset];
-            break;
+            return ret;
         }
         i++;
     }
+    // Reached max iterations without being in fund domain.
+    // Return error sentinel.
+    ret.coset = 255;
     return ret;
 }
 
 float2 six_panel_vif_to_uv(vect_in_fund vf)
 {
+    // Retrieve the color from one of six panels inside a single texture
+    // MAJOR GOTCHA: The texture must NOT have mipmaps enabled!
     float2 xy = toklein(vf.v);
     float2 uv0 = 0.3333333333333*0.5*(xy + 1.0);
     uv0 = uv0 + float2(0.3333333333333 * (vf.coset%3), 0.3333333333333 * (vf.coset/3));
