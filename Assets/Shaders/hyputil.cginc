@@ -92,3 +92,38 @@ float2 six_panel_vif_to_uv(vect_in_fund vf)
     uv0 = uv0 + float2(0.3333333333333 * (vf.coset%3), 0.3333333333333 * (vf.coset/3));
     return uv0*float2(1,-1) + float2(0,1);
 }
+
+
+vect_in_fund six_panel_uv_to_vif(float2 uv)
+{
+    uint coset;
+    uint i,j;
+
+    // convert to v=0 is top
+    uv = uv*float2(1,-1) + float2(0,1);
+
+    // which panel are we in?
+    i = floor(3*uv.x);
+    j = floor(3*uv.y);
+    coset = i+3*j;
+
+    // and what position within the panel?
+    uv = uv - float2(0.3333333333333 * i, 0.3333333333333 * j);
+    float2 xy = 6*uv - 1;
+
+    vect_in_fund vf;
+
+    if (length(xy) < 1) {
+        vf.v = fromklein(xy);
+        vf.coset = coset;
+    } else {
+        vf.v = float3(0,0,0);
+        vf.coset = 255;
+    }
+    return vf;
+}
+
+float hyp_quasi_dist(float3 v, float3 w)
+{
+    return dot(v,w)-1.0;
+}
