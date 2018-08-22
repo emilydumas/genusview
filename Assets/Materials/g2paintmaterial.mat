@@ -6,8 +6,8 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: h2paintmaterial
-  m_Shader: {fileID: 4800000, guid: cb0e8d8c2d1b04e24a8a5730fbcad0d8, type: 3}
+  m_Name: g2paintmaterial
+  m_Shader: {fileID: 4800000, guid: 31b1f727aa45c4f60a5f02b179005a58, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -75,5 +75,5 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _PaintXY: {r: -0.38780525, g: -0.1673986, b: 0, a: 0}
-    - _SpotColor: {r: 1, g: 1, b: 0, a: 1}
+    - _PaintUV: {r: 0.8761165, g: 0.48714796, b: 0, a: 0}
+    - _SpotColor: {r: 1, g: 1, b: 1, a: 1}

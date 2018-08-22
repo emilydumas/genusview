@@ -1,19 +1,14 @@
-﻿// For the h2draw scene
-// Allow keyboard (WASD) control of a spot on the hyperbolic plane whose orbit under the Fuchsian group is drawn.
-
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class spotWASD : MonoBehaviour {
-	public float speed = 10.0f;
+public class g2paintable : MonoBehaviour {
 	public float spotSize = 0.001f;
 	public Material paintMaterial;
-	private Vector2 location = new Vector2(0,0);
 	private Material m;
 	private Texture baseTexture;
 	private int mainTexturePropertyID;
-	private int paintXYPropertyID;
+	private int paintUVPropertyID;
 	private RenderTexture rt;
 
 	void Start () {
@@ -23,7 +18,7 @@ public class spotWASD : MonoBehaviour {
 		baseTexture = m.mainTexture;
 		mainTexturePropertyID = Shader.PropertyToID("_MainTex");
 
-		paintXYPropertyID = Shader.PropertyToID ("_PaintXY");
+		paintUVPropertyID = Shader.PropertyToID ("_PaintUV");
 		paintMaterial.SetFloat ("_SpotSize", spotSize);
 
 		// Create a new rendertexture that is initially a copy of the current texture
@@ -32,36 +27,29 @@ public class spotWASD : MonoBehaviour {
 		Graphics.Blit(baseTexture, rt);
 		m.SetTexture(mainTexturePropertyID, rt);
 
-        // Set all objects that previously used the shared material to use the copy
+        // Find all objects that used the baseTexture, and set them to use the copy instead.
         GameObject[] gos = FindObjectsOfType(typeof(GameObject)) as GameObject[];
         foreach (GameObject go in gos)
         {
-            Renderer rend = go.GetComponent<Renderer>();
+            Renderer rend = go.GetComponent<Renderer>(); 
             if (rend == null)
             {
                 continue;
             }
-            if (rend.sharedMaterial == sm)
+
+	
+            if (rend.sharedMaterial.mainTexture == baseTexture)
             {
-                Debug.Log("Setting material for " + go.name);
-                rend.sharedMaterial = m;
+                Debug.Log("Setting " + go.name + " to use shared rendermaterial");
+				Material otherm = rend.material;  // Generates a copy.
+				otherm.SetTexture(mainTexturePropertyID, rt);
             }
         }
 	}
 
-
-	void Update () {
-		float horiz = Input.GetAxis ("Horizontal") * speed;
-		float vert = Input.GetAxis ("Vertical") * speed;
-		float dt = Time.deltaTime;
-
-		location = location - new Vector2(horiz * dt, vert * dt);
-		PaintXY(location);
-	}
-
-	public void PaintXY(Vector2 xy) {
+	public void PaintUV(Vector2 uv) {
 		RenderTexture buffer = RenderTexture.GetTemporary(rt.width, rt.height, 0, RenderTextureFormat.ARGB32, RenderTextureReadWrite.Linear);
-		paintMaterial.SetVector (paintXYPropertyID, new Vector4(xy.x,xy.y,0,0));
+		paintMaterial.SetVector (paintUVPropertyID, new Vector4(uv.x,uv.y,0,0));
 		Graphics.Blit(rt, buffer, paintMaterial);
 		Graphics.Blit(buffer, rt);
 		RenderTexture.ReleaseTemporary(buffer);
