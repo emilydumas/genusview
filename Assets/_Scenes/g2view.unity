@@ -178,6 +178,50 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &300956908
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 300956910}
+  - component: {fileID: 300956909}
+  m_Layer: 0
+  m_Name: Global Script Holder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &300956909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 300956908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 417b6f309ae0f4ced885694d5af80778, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camera: {fileID: 534669902}
+  stickHolder: {fileID: 1766946991}
+  speed: 10
+  mouseSpeed: 5
+--- !u!4 &300956910
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 300956908}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.70088285, y: -0.62926126, z: 6.643449}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &534669902
 GameObject:
   m_ObjectHideFlags: 0
@@ -188,7 +232,6 @@ GameObject:
   - component: {fileID: 534669905}
   - component: {fileID: 534669904}
   - component: {fileID: 534669903}
-  - component: {fileID: 534669906}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: Untagged
@@ -253,19 +296,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 5.5680003, y: -0.47300002, z: 1.7700001}
---- !u!114 &534669906
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 534669902}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 417b6f309ae0f4ced885694d5af80778, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 10
-  mouseSpeed: 2.5
 --- !u!1 &729538883
 GameObject:
   m_ObjectHideFlags: 0
@@ -277,7 +307,7 @@ GameObject:
   - component: {fileID: 729538887}
   - component: {fileID: 729538885}
   m_Layer: 2
-  m_Name: stick
+  m_Name: Stick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -384,6 +414,10 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.y
       value: -185.655
       objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 72a46496775ba42659b557db9f745859, type: 3}
+      propertyPath: m_Name
+      value: Genus 2 surface
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 72a46496775ba42659b557db9f745859, type: 3}
   m_IsPrefabParent: 0
@@ -399,7 +433,7 @@ GameObject:
   - component: {fileID: 1164985759}
   - component: {fileID: 1164985758}
   m_Layer: 2
-  m_Name: Quad6
+  m_Name: Texture Preview
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -486,7 +520,7 @@ GameObject:
   - component: {fileID: 1675142550}
   - component: {fileID: 1675142554}
   m_Layer: 2
-  m_Name: Quad
+  m_Name: H2 view
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -582,7 +616,7 @@ GameObject:
   - component: {fileID: 1766946993}
   - component: {fileID: 1766946992}
   m_Layer: 0
-  m_Name: stickholder
+  m_Name: Stick Holder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

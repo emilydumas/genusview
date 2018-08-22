@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StickControl : MonoBehaviour {
+public class StickBehavior : MonoBehaviour {
 	public float maxRotation = 90f;
 	public float maxDist = Mathf.Infinity;
 	private Quaternion initQ;
 	private Renderer[] rends;
+	private bool isDrawing = false;
+	private bool isVisible = true;
+	private bool drill = false; // not supported yet
 
 	void Start () {
-		Cursor.visible = false;
 		rends = gameObject.GetComponentsInChildren<Renderer>();
 		initQ = transform.localRotation;
 		makeInvisible();
@@ -19,34 +21,60 @@ public class StickControl : MonoBehaviour {
 		return new Vector2 (2 * Input.mousePosition.x / Screen.width - 1, 2 * Input.mousePosition.y / Screen.height - 1);
 	}
 
-	void setVisibility(bool b)
+	public void setDrawing(bool d)
+	{
+		isDrawing = d;
+	}
+
+	public void startDrawing()
+	{
+		setDrawing(true);
+	}
+
+	public void stopDrawing()
+	{
+		setDrawing(false);
+	}
+
+	public void setDrill(bool d)
+	{
+		drill = d;
+	}
+
+	public void setVisibility(bool b)
 	{	
+		isVisible = b;
 		foreach (Renderer r in rends) {
             r.enabled = b;
         }
     }
 
-	void makeInvisible()
+	public void makeInvisible()
 	{
 		setVisibility(false);
     }
 
-	void makeVisible() {
+	public void makeVisible() {
 		setVisibility(true);
 	}
 
 	void Update () {
-		if (Input.GetMouseButtonDown(0)) {
-			makeVisible();
-		}
-		if (Input.GetMouseButtonUp(0)) {
-			makeInvisible();
-		}
-		if (Input.GetMouseButton(0)) {
+		if (isVisible) {
 			Vector2 mp = RelMousePos ();
 			transform.localRotation = initQ * Quaternion.Euler(-0.5f*maxRotation*mp.y,0,-0.5f*maxRotation*mp.x);
-			PaintFirstHit();
 		}
+		if (isDrawing) {
+			if (drill) {
+				PaintAllHits();
+			} else {
+				PaintFirstHit();
+			}
+		}
+	}
+
+	void PaintAllHits() {
+		Debug.Log("PAINTING ALL HITS NOT IMPLEMENTED.");
+		PaintFirstHit();
 	}
 
     void PaintFirstHit() {
