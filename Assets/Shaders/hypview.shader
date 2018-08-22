@@ -3,6 +3,7 @@
 	Properties
 	{
 		_MainTex ("Texture", 2D) = "white" {}
+		_Poincare("Draw in Poincare disk?", INT) = 1
 	}
 	SubShader
 	{
@@ -34,6 +35,7 @@
 
 			sampler2D _MainTex;
 			float4 _MainTex_ST;
+			int _Poincare;
 			
 			v2f vert (appdata v)
 			{
@@ -51,8 +53,15 @@
 				float2 xy = 2.0*(i.uv - float2(0.5,0.5));
 				float2 uv = float2(0,0);
 
+
 				UNITY_BRANCH
 				if (length(xy) < 1.0) {
+					// Convert Poincare to Klein if necessary.
+					// If _Poincare==1, pcoef*xy is the image of xy in the Klein model
+					// If _Poincare==0, then pcoef=1 so xy in unchanged
+					float pcoef = (2.0*_Poincare / (1.0 + dot(xy,xy))) + (1.0-_Poincare);
+					xy = pcoef*xy;
+
 					float3 v = fromklein(xy);
 					vect_in_fund vf = tofund(v);
 					if (vf.coset != 255) {
