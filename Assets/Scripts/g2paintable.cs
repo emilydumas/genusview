@@ -5,6 +5,7 @@ using UnityEngine;
 public class g2paintable : MonoBehaviour {
 	public float spotSize = 0.001f;
 	public Material paintMaterial;
+	public Color paintColor = new Color(0,0,0,1);
 	private Material m;
 	private Texture baseTexture;
 	private int mainTexturePropertyID;
@@ -20,6 +21,7 @@ public class g2paintable : MonoBehaviour {
 
 		paintUVPropertyID = Shader.PropertyToID ("_PaintUV");
 		paintMaterial.SetFloat ("_SpotSize", spotSize);
+		paintMaterial.SetVector("_SpotColor", paintColor);
 
 		// Create a new rendertexture that is initially a copy of the current texture
 		rt = new RenderTexture (baseTexture.width, baseTexture.height, 0, RenderTextureFormat.ARGB32, RenderTextureReadWrite.Linear);

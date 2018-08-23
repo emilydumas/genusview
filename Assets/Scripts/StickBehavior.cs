@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class StickBehavior : MonoBehaviour {
-	public float maxRotation = 90f;
 	public float maxDist = Mathf.Infinity;
-	private Quaternion initQ;
 	private Renderer[] rends;
 	private bool isDrawing = false;
 	private bool isVisible = true;
@@ -13,12 +11,7 @@ public class StickBehavior : MonoBehaviour {
 
 	void Start () {
 		rends = gameObject.GetComponentsInChildren<Renderer>();
-		initQ = transform.localRotation;
 		makeInvisible();
-	}
-
-	private Vector2 RelMousePos() {
-		return new Vector2 (2 * Input.mousePosition.x / Screen.width - 1, 2 * Input.mousePosition.y / Screen.height - 1);
 	}
 
 	public void setDrawing(bool d)
@@ -59,10 +52,6 @@ public class StickBehavior : MonoBehaviour {
 	}
 
 	void Update () {
-		if (isVisible) {
-			Vector2 mp = RelMousePos ();
-			transform.localRotation = initQ * Quaternion.Euler(-0.5f*maxRotation*mp.y,0,-0.5f*maxRotation*mp.x);
-		}
 		if (isDrawing) {
 			if (drill) {
 				PaintAllHits();

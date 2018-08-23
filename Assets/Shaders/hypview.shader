@@ -1,4 +1,8 @@
-﻿Shader "Unlit/hypview"
+﻿// Take a 6-panel Klein model texture (6-fold square tiling)
+// and show it in either the Klein or Poincare model
+// (with infinite resolution!)
+
+Shader "Unlit/hypview"
 {
 	Properties
 	{
@@ -12,6 +16,7 @@
 
 		Pass
 		{
+			Cull Off
 			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag

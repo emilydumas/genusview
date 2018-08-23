@@ -178,6 +178,10 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &175034025 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100002, guid: 72a46496775ba42659b557db9f745859, type: 3}
+  m_PrefabInternal: {fileID: 895094696}
 --- !u!1 &300956908
 GameObject:
   m_ObjectHideFlags: 0
@@ -207,6 +211,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camera: {fileID: 534669902}
   stickHolder: {fileID: 1766946991}
+  surface: {fileID: 175034025}
+  turnRange: 180
+  stickRange: 90
   speed: 10
   mouseSpeed: 5
 --- !u!4 &300956910
@@ -605,7 +612,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edc15c763062c479d9f629c27fbda166, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewMode: 1
+  viewMode: 0
 --- !u!1 &1766946991
 GameObject:
   m_ObjectHideFlags: 0
@@ -633,7 +640,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43ee5821d40084e81ae9500d7cbb95b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxRotation: 90
   maxDist: Infinity
 --- !u!4 &1766946993
 Transform:
@@ -666,6 +672,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spotSize: 0.001
   paintMaterial: {fileID: 2100000, guid: 90d1f3b0c32fb45fa8f6e3d55d1e1e74, type: 2}
+  paintColor: {r: 0.2647059, g: 0.2647059, b: 0.2647059, a: 1}
 --- !u!64 &1838378363
 MeshCollider:
   m_ObjectHideFlags: 0
