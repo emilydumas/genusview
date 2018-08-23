@@ -13,8 +13,6 @@ public class g2paintable : MonoBehaviour {
 	private RenderTexture rt;
 
 	void Start () {
-        Material sm = gameObject.GetComponent<Renderer>().sharedMaterial;
-
 		m = gameObject.GetComponent<Renderer>().material; // This will generate and return a copy!
 		baseTexture = m.mainTexture;
 		mainTexturePropertyID = Shader.PropertyToID("_MainTex");
@@ -48,17 +46,24 @@ public class g2paintable : MonoBehaviour {
         }
 	}
 
-	void Update () {
-		if (Input.GetKeyDown(KeyCode.Z))
-		{
-			Graphics.Blit(baseTexture,rt);
-		}
+	public void Clear() {
+		Graphics.Blit(baseTexture,rt);
 	}
 
 	public void PaintUV(Vector2 uv) {
+		// Draw a new spot on the rendertexture at (u,v)
 		RenderTexture buffer = RenderTexture.GetTemporary(rt.width, rt.height, 0, RenderTextureFormat.ARGB32, RenderTextureReadWrite.Linear);
 		paintMaterial.SetVector (paintUVPropertyID, new Vector4(uv.x,uv.y,0,0));
 		Graphics.Blit(rt, buffer, paintMaterial);
+		Graphics.Blit(buffer, rt);
+		RenderTexture.ReleaseTemporary(buffer);
+	}
+
+	public void SpotUV(Vector2 uv) {
+		// Clear everything and draw a spot at (u,v)
+		RenderTexture buffer = RenderTexture.GetTemporary(rt.width, rt.height, 0, RenderTextureFormat.ARGB32, RenderTextureReadWrite.Linear);
+		paintMaterial.SetVector (paintUVPropertyID, new Vector4(uv.x,uv.y,0,0));
+		Graphics.Blit(baseTexture, buffer, paintMaterial);
 		Graphics.Blit(buffer, rt);
 		RenderTexture.ReleaseTemporary(buffer);
 	}

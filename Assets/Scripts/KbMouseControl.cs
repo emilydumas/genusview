@@ -14,6 +14,7 @@ public class KbMouseControl : MonoBehaviour {
 	private MouseMode mouseMode = MouseMode.Look;
 	private MouseMode savedMode = MouseMode.Look;
 	private Quaternion stickInitQ, cameraInitQ, surfaceInitQ;
+	private g2paintable[] paintables;
 
 	public float speed = 10.0f;
 	public float mouseSpeed = 5.0f;
@@ -21,6 +22,7 @@ public class KbMouseControl : MonoBehaviour {
 	private Vector2 mpos = new Vector2(0,0);
 
 	void Start() {
+		paintables = FindObjectsOfType<g2paintable>();
 		sb = stickHolder.GetComponent<StickBehavior>();
 		stickInitQ = stickHolder.transform.localRotation;
 		cameraInitQ = camera.transform.localRotation;
@@ -85,7 +87,12 @@ public class KbMouseControl : MonoBehaviour {
 				sb.makeVisible();
 			}
 		}
-		
+
+		if (Input.GetKeyDown(KeyCode.Z)) {
+			foreach (g2paintable p in paintables) {
+				p.Clear();
+			}
+		}
 
 		// Walk & strafe according to keyboard
 		float horiz = Input.GetAxis ("Horizontal") * speed;
