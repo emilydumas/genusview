@@ -34,12 +34,16 @@ Shader "g2paint"
 				// sample the texture
 				fixed4 col = tex2D(_MainTex, i.uv);
 
-				if (vif.coset != vifspot.coset) 
+				if (vif.coset > 5)
 					return col;
+					
+				//if (vif.coset != vifspot.coset) 
+				//	return col;
 				if (vif.coset == 255)
 					return col;
 	
-				float d = hyp_quasi_dist(vif.v, vifspot.v);
+				//float d = hyp_quasi_dist(vif.v, vifspot.v);
+				float d = g2_quasi_dist(vif, vifspot);
 				if (d > _SpotSize)
 					return col;
 				else

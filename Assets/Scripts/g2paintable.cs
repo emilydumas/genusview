@@ -18,8 +18,7 @@ public class g2paintable : MonoBehaviour {
 		m = gameObject.GetComponent<Renderer>().material; // This will generate and return a copy!
 		baseTexture = m.mainTexture;
 		mainTexturePropertyID = Shader.PropertyToID("_MainTex");
-
-		paintUVPropertyID = Shader.PropertyToID ("_PaintUV");
+		paintUVPropertyID = Shader.PropertyToID("_PaintUV");
 		paintMaterial.SetFloat ("_SpotSize", spotSize);
 		paintMaterial.SetVector("_SpotColor", paintColor);
 
@@ -47,6 +46,13 @@ public class g2paintable : MonoBehaviour {
 				otherm.SetTexture(mainTexturePropertyID, rt);
             }
         }
+	}
+
+	void Update () {
+		if (Input.GetKeyDown(KeyCode.Z))
+		{
+			Graphics.Blit(baseTexture,rt);
+		}
 	}
 
 	public void PaintUV(Vector2 uv) {
