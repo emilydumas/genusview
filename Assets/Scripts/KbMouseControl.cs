@@ -15,6 +15,7 @@ public class KbMouseControl : MonoBehaviour {
 	private MouseMode savedMode = MouseMode.Look;
 	private Quaternion stickInitQ, cameraInitQ, surfaceInitQ;
 	private g2paintable[] paintables;
+	private Vector3 surfaceDelta;
 
 	public float speed = 10.0f;
 	public float mouseSpeed = 5.0f;
@@ -74,18 +75,22 @@ public class KbMouseControl : MonoBehaviour {
 			}
 		}
 
-		if (Input.GetKeyDown(KeyCode.R) || Input.GetMouseButtonDown(1)) {
+		if (Input.GetKeyDown(KeyCode.LeftAlt) || Input.GetMouseButtonDown(1)) {
+			ResetMousePos();
+			surfaceInitQ = surface.transform.localRotation;
 			savedMode = mouseMode;
 			if (mouseMode == MouseMode.Stick) {
 				sb.makeInvisible();
 			}
 			mouseMode = MouseMode.Rotate;
+			surfaceDelta = surface.transform.position - camera.transform.position; 
 		}
-		if (Input.GetKeyUp(KeyCode.R) || Input.GetMouseButtonUp(1)) {
+		if (Input.GetKeyUp(KeyCode.LeftAlt) || Input.GetMouseButtonUp(1)) {
 			mouseMode = savedMode;
 			if (mouseMode == MouseMode.Stick) {
 				sb.makeVisible();
 			}
+			ResetMousePos();
 		}
 
 		if (Input.GetKeyDown(KeyCode.Z)) {
@@ -98,6 +103,9 @@ public class KbMouseControl : MonoBehaviour {
 		float horiz = Input.GetAxis ("Horizontal") * speed;
 		float depth = Input.GetAxis ("Vertical") * speed;
 		camera.transform.Translate (horiz * dt, 0f, depth * dt);
+	    if (mouseMode == MouseMode.Rotate) {
+			surface.transform.position = camera.transform.position + surfaceDelta;
+		}		
 
 		if (mouseMode == MouseMode.Look) {
 			Vector2 mp = RelMousePos ();
