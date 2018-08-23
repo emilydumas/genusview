@@ -52,6 +52,9 @@ public class KbMouseControl : MonoBehaviour {
 	void ResetMousePos() {
 		mpos.x = 0f;
 		mpos.y = 0f;
+		stickInitQ = stickHolder.transform.localRotation;
+		cameraInitQ = camera.transform.localRotation;
+		surfaceInitQ = surface.transform.localRotation;
 	}
 
 	void Update () {
@@ -65,19 +68,19 @@ public class KbMouseControl : MonoBehaviour {
 			ResetMousePos();
 			// Space bar toggles mode (walk/draw)
 			if (mouseMode == MouseMode.Look) {
-				stickInitQ = stickHolder.transform.localRotation;
+		//			stickInitQ = stickHolder.transform.localRotation;
 				mouseMode = MouseMode.Stick;
 				sb.makeVisible();
 			} else if (mouseMode == MouseMode.Stick) {
 				sb.makeInvisible();
 				mouseMode = MouseMode.Look;
-				cameraInitQ = camera.transform.localRotation;
+//				cameraInitQ = camera.transform.localRotation;
 			}
 		}
 
 		if (Input.GetKeyDown(KeyCode.LeftAlt) || Input.GetMouseButtonDown(1)) {
 			ResetMousePos();
-			surfaceInitQ = surface.transform.localRotation;
+//			surfaceInitQ = surface.transform.localRotation;
 			savedMode = mouseMode;
 			if (mouseMode == MouseMode.Stick) {
 				sb.makeInvisible();
@@ -86,11 +89,11 @@ public class KbMouseControl : MonoBehaviour {
 			surfaceDelta = surface.transform.position - camera.transform.position; 
 		}
 		if (Input.GetKeyUp(KeyCode.LeftAlt) || Input.GetMouseButtonUp(1)) {
+			ResetMousePos();
 			mouseMode = savedMode;
 			if (mouseMode == MouseMode.Stick) {
 				sb.makeVisible();
 			}
-			ResetMousePos();
 		}
 
 		if (Input.GetKeyDown(KeyCode.Z)) {
@@ -122,7 +125,7 @@ public class KbMouseControl : MonoBehaviour {
 		}
 		if (mouseMode == MouseMode.Rotate) {
 			Vector2 mp = RelMousePos ();
-			surface.transform.localRotation = surfaceInitQ * Quaternion.Euler(-turnRange*mp.y,-turnRange*mp.x,0);
+			surface.transform.localRotation = Quaternion.AngleAxis(turnRange*mp.y,camera.transform.right) * Quaternion.AngleAxis(-turnRange*mp.x,camera.transform.up) * surfaceInitQ;
 		}
 	}
 }
