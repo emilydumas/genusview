@@ -8,6 +8,7 @@ public class KbMouseControl : MonoBehaviour {
 	public GameObject camera;
 	public GameObject stickHolder;
 	public GameObject surface;
+	public GameObject helpScreenParent;
 	public float turnRange = 180f;
 	public float stickRange = 90f;
 	private StickBehavior sb;
@@ -15,6 +16,7 @@ public class KbMouseControl : MonoBehaviour {
 	private MouseMode savedMode = MouseMode.Look;
 	private Quaternion stickInitQ, cameraInitQ, surfaceInitQ;
 	private g2paintable[] paintables;
+	private HelpScreen helpScreen;
 	private Vector3 surfaceDelta;
 
 	public float speed = 10.0f;
@@ -25,6 +27,7 @@ public class KbMouseControl : MonoBehaviour {
 	void Start() {
 		paintables = FindObjectsOfType<g2paintable>();
 		sb = stickHolder.GetComponent<StickBehavior>();
+		helpScreen = helpScreenParent.GetComponent<HelpScreen>();
 		stickInitQ = stickHolder.transform.localRotation;
 		cameraInitQ = camera.transform.localRotation;
 		surfaceInitQ = surface.transform.localRotation;
@@ -62,6 +65,10 @@ public class KbMouseControl : MonoBehaviour {
 
 		if (Input.GetKeyDown(KeyCode.Escape)) {
 			doQuit();
+		}
+
+		if (Input.GetKeyDown(KeyCode.H)) {
+			helpScreen.ToggleVisibility();
 		}
 
 		if (Input.GetKeyDown(KeyCode.Space)) {
