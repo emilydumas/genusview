@@ -7,6 +7,7 @@ Right Button or Left Alt = Hold to GRAB surface
 Z = Clear drawing
 K = Toggle Poincare/Klein model
 H = Toggle this help screen
+Escape = Quit
 
 Mouse controls view direction (in WALK mode), laser position (in DRAW mode), or rotation of the surface (in GRAB mode).
 
