@@ -32,6 +32,7 @@ public class KbMouseControl : MonoBehaviour {
 		cameraInitQ = camera.transform.localRotation;
 		surfaceInitQ = surface.transform.localRotation;
 		Cursor.lockState = CursorLockMode.Locked;
+		Cursor.visible = false;
 	}
 
 	void doQuit() {
