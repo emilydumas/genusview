@@ -218,7 +218,7 @@ MonoBehaviour:
   turnRange: 180
   stickRange: 90
   speed: 10
-  mouseSpeed: 5
+  mouseSpeed: 4
 --- !u!4 &300956910
 Transform:
   m_ObjectHideFlags: 0

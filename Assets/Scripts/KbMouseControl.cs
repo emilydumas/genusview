@@ -20,7 +20,7 @@ public class KbMouseControl : MonoBehaviour {
 	private Vector3 surfaceDelta;
 
 	public float speed = 10.0f;
-	public float mouseSpeed = 5.0f;
+	public float mouseSpeed = 4.0f;
 
 	private Vector2 mpos = new Vector2(0,0);
 
