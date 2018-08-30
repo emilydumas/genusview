@@ -1,14 +1,15 @@
-GenusView (v0.3 alpha) by David Dumas
+GenusView (v0.4 alpha) by David Dumas
 
 Arrows/WASD = Walk around
 Space = Toggle mode WALK/DRAW
-Left Button or Left Shift = Hold to draw (when in DRAW mode)
-Right Button or Left Alt = Hold to GRAB surface
+Left Button or Shift = Hold to draw (when in DRAW mode)
+Right Button or Alt = Hold to GRAB surface
 Z = Clear drawing
 K = Toggle Poincare/Klein model
 H = Toggle this help screen
-Escape = Quit
+Escape = Exit help screen
+Control-Q = Quit
 
 Mouse controls view direction (in WALK mode), laser position (in DRAW mode), or rotation of the surface (in GRAB mode).
 
-Press H again to hide the help screen.
+Press H or Escape to hide the help screen.
