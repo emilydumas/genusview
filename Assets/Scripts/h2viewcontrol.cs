@@ -22,11 +22,7 @@ public class h2viewcontrol : MonoBehaviour {
 		ExportMode();
 	}
 
-//	void OnValidate() {
-
-//	}
-
-	void Toggle() {
+	public void Toggle() {
 		if (viewMode == ViewMode.Poincare) {
 			viewMode = ViewMode.Klein;
 		} else {
@@ -34,7 +30,7 @@ public class h2viewcontrol : MonoBehaviour {
 		}
 	}
 
-	void ExportMode() {
+	public void ExportMode() {
 		int p;
 
 		if (viewMode == ViewMode.Poincare) {
@@ -50,12 +46,4 @@ public class h2viewcontrol : MonoBehaviour {
 		}
 
 	}
-
-	void Update() {
-		if (Input.GetKeyDown(KeyCode.K)) {
-			Toggle();
-			ExportMode();
-		}
-	}
-
 }

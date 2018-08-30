@@ -9,9 +9,11 @@ public class KbMouseControl : MonoBehaviour {
 	public GameObject stickHolder;
 	public GameObject surface;
 	public GameObject helpScreenParent;
+	public GameObject h2view;
 	public float turnRange = 180f;
 	public float stickRange = 90f;
 	private StickBehavior sb;
+	private h2viewcontrol h2c;
 	private MouseMode mouseMode = MouseMode.Look;
 	private MouseMode savedMode = MouseMode.Look;
 	private Quaternion stickInitQ, cameraInitQ, surfaceInitQ;
@@ -26,8 +28,10 @@ public class KbMouseControl : MonoBehaviour {
 
 	void Start() {
 		pt = PaintableTexture.Instance;
+		// Todo: replace below with singletons to avoid need for linking in the editor
 		sb = stickHolder.GetComponent<StickBehavior>();
 		helpScreen = helpScreenParent.GetComponent<HelpScreen>();
+		h2c = h2view.GetComponent<h2viewcontrol>();
 		stickInitQ = stickHolder.transform.localRotation;
 		cameraInitQ = camera.transform.localRotation;
 		surfaceInitQ = surface.transform.localRotation;
@@ -107,6 +111,11 @@ public class KbMouseControl : MonoBehaviour {
 
 		if (Input.GetKeyDown(KeyCode.Z)) {
 			pt.Clear();
+		}
+
+		if (Input.GetKeyDown(KeyCode.K)) {
+			h2c.Toggle();
+			h2c.ExportMode();
 		}
 
 		// Walk & strafe according to keyboard
