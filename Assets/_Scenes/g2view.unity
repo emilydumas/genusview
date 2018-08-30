@@ -193,6 +193,7 @@ GameObject:
   m_Component:
   - component: {fileID: 300956910}
   - component: {fileID: 300956909}
+  - component: {fileID: 300956911}
   m_Layer: 0
   m_Name: Global Script Holder
   m_TagString: Untagged
@@ -232,6 +233,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &300956911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 300956908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddd220af5208af3489e1c7d8ab77e792, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  indicatorColor: {r: 0.7, g: 0.7, b: 0.7, a: 1}
 --- !u!1 &407840972
 GameObject:
   m_ObjectHideFlags: 0

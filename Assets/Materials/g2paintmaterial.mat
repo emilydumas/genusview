@@ -4,7 +4,7 @@
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: g2paintmaterial
   m_Shader: {fileID: 4800000, guid: 31b1f727aa45c4f60a5f02b179005a58, type: 3}
@@ -75,5 +75,5 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _PaintUV: {r: 0.4321763, g: 0.15759796, b: 0, a: 0}
+    - _PaintUV: {r: 0.8505909, g: 0.5754571, b: 0, a: 0}
     - _SpotColor: {r: 0.2647059, g: 0.2647059, b: 0.2647059, a: 1}
