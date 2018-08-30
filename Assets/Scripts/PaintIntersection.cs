@@ -7,6 +7,11 @@ using UnityEngine;
 
 public class PaintIntersection : MonoBehaviour {
 	public float maxDist = Mathf.Infinity;
+	private PaintableTexture pt;
+
+    void Start() {
+        pt = PaintableTexture.Instance;
+    }
 
     void Update() {
         if (Input.GetMouseButton(0))
@@ -19,9 +24,8 @@ public class PaintIntersection : MonoBehaviour {
 
         if (Physics.Raycast (transform.position, raydir, out hit, maxDist)) {
 			GameObject g = hit.transform.gameObject;
-			g2paintable p = g.GetComponent<g2paintable> ();
-			if (p != null) {
-				p.PaintUV (hit.textureCoord);
+            if (pt != null) {
+				pt.PaintUV (g, hit.textureCoord);
 			}
 		}
 	}

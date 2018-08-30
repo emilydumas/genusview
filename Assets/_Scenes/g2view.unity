@@ -194,6 +194,7 @@ GameObject:
   - component: {fileID: 300956910}
   - component: {fileID: 300956909}
   - component: {fileID: 300956911}
+  - component: {fileID: 300956912}
   m_Layer: 0
   m_Name: Global Script Holder
   m_TagString: Untagged
@@ -245,6 +246,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   indicatorColor: {r: 0.7, g: 0.7, b: 0.7, a: 1}
+--- !u!114 &300956912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 300956908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ced4e22afe0353447b04290fe1f649e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 2800000, guid: 1e3cf0f344468489c8ab12b818efd301, type: 3}
+  spotSize: 0.001
+  paintColor: {r: 0.2735849, g: 0.2735849, b: 0.2735849, a: 1}
 --- !u!1 &407840972
 GameObject:
   m_ObjectHideFlags: 0
@@ -801,6 +816,18 @@ Prefab:
       propertyPath: m_Name
       value: Genus 2 surface
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 72a46496775ba42659b557db9f745859, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 72a46496775ba42659b557db9f745859, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 72a46496775ba42659b557db9f745859, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 72a46496775ba42659b557db9f745859, type: 3}
   m_IsPrefabAsset: 0
@@ -1128,7 +1155,8 @@ GameObject:
   - component: {fileID: 1675142551}
   - component: {fileID: 1675142550}
   - component: {fileID: 1675142554}
-  m_Layer: 2
+  - component: {fileID: 1675142555}
+  m_Layer: 8
   m_Name: H2 view
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1216,6 +1244,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   viewMode: 0
+--- !u!114 &1675142555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1675142549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8805ee97d078e74dbc620b3a29700b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  paintMaterial: {fileID: 2100000, guid: c3c319f4f66a946d1bbe2c7ae0ef283e, type: 2}
 --- !u!1 &1766946991
 GameObject:
   m_ObjectHideFlags: 0
@@ -1272,12 +1312,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1838378358}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4334967230bbc4ee999727516682f0ba, type: 3}
+  m_Script: {fileID: 11500000, guid: d8805ee97d078e74dbc620b3a29700b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spotSize: 0.001
   paintMaterial: {fileID: 2100000, guid: 90d1f3b0c32fb45fa8f6e3d55d1e1e74, type: 2}
-  paintColor: {r: 0.2647059, g: 0.2647059, b: 0.2647059, a: 1}
 --- !u!64 &1838378363
 MeshCollider:
   m_ObjectHideFlags: 0

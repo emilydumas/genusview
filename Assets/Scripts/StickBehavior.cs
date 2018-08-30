@@ -8,9 +8,13 @@ public class StickBehavior : MonoBehaviour {
 	private bool isDrawing = false;
 	private bool isVisible = true;
 	private bool drill = false; // not supported yet
-
+	private PaintableTexture pt;
+	private LayerMask layerMask = Physics.DefaultRaycastLayers;
+	
 	void Start () {
 		rends = gameObject.GetComponentsInChildren<Renderer>();
+        pt = PaintableTexture.Instance;
+		layerMask = (1 << LayerMask.NameToLayer("Paintable"));
 		makeInvisible();
 	}
 
@@ -70,11 +74,11 @@ public class StickBehavior : MonoBehaviour {
         var raydir = transform.TransformDirection(Vector3.up);
         RaycastHit hit;
 
-        if (Physics.Raycast (transform.position, raydir, out hit, maxDist)) {
+        if (Physics.Raycast (transform.position, raydir, out hit, maxDist, layerMask)) {
 			GameObject g = hit.transform.gameObject;
-			g2paintable p = g.GetComponent<g2paintable> ();
-			if (p != null) {
-				p.PaintUV (hit.textureCoord);
+
+            if (pt != null) {
+				pt.PaintUV (g, hit.textureCoord);
 			}
 		}
 	}

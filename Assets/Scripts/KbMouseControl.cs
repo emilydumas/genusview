@@ -15,7 +15,7 @@ public class KbMouseControl : MonoBehaviour {
 	private MouseMode mouseMode = MouseMode.Look;
 	private MouseMode savedMode = MouseMode.Look;
 	private Quaternion stickInitQ, cameraInitQ, surfaceInitQ;
-	private g2paintable[] paintables;
+	private PaintableTexture pt = null;
 	private HelpScreen helpScreen;
 	private Vector3 surfaceDelta;
 
@@ -25,7 +25,7 @@ public class KbMouseControl : MonoBehaviour {
 	private Vector2 mpos = new Vector2(0,0);
 
 	void Start() {
-		paintables = FindObjectsOfType<g2paintable>();
+		pt = PaintableTexture.Instance;
 		sb = stickHolder.GetComponent<StickBehavior>();
 		helpScreen = helpScreenParent.GetComponent<HelpScreen>();
 		stickInitQ = stickHolder.transform.localRotation;
@@ -106,9 +106,7 @@ public class KbMouseControl : MonoBehaviour {
 		}
 
 		if (Input.GetKeyDown(KeyCode.Z)) {
-			foreach (g2paintable p in paintables) {
-				p.Clear();
-			}
+			pt.Clear();
 		}
 
 		// Walk & strafe according to keyboard

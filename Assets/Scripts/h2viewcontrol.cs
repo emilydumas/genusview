@@ -7,6 +7,7 @@ public enum ViewMode { Poincare, Klein };
 public class h2viewcontrol : MonoBehaviour {
 	public ViewMode viewMode;
 	private Material m = null;
+	private Material pm = null;
 
 	void Start () {
 		Renderer r = gameObject.GetComponent<Renderer>();
@@ -14,6 +15,10 @@ public class h2viewcontrol : MonoBehaviour {
 		if (r != null) {
 			m = r.material;
 		}
+
+		PaintData pd = gameObject.GetComponent<PaintData>();
+		pm = pd.paintMaterial;
+
 		ExportMode();
 	}
 
@@ -30,9 +35,6 @@ public class h2viewcontrol : MonoBehaviour {
 	}
 
 	void ExportMode() {
-		if (m == null) {
-			return;
-		}
 		int p;
 
 		if (viewMode == ViewMode.Poincare) {
@@ -40,7 +42,13 @@ public class h2viewcontrol : MonoBehaviour {
 		} else {
 			p = 0;
 		}
-		m.SetInt("_Poincare",p);
+		if (m != null) {
+			m.SetInt("_Poincare",p);
+		}
+		if (pm != null) {
+			pm.SetInt("_Poincare",p);
+		}
+
 	}
 
 	void Update() {

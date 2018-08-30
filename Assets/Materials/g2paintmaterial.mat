@@ -68,12 +68,12 @@ Material:
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
-    - _SpotSize: 0.001
+    - _SpotSize: 0.0002
     - _SrcBlend: 1
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _PaintUV: {r: 0.8505909, g: 0.5754571, b: 0, a: 0}
-    - _SpotColor: {r: 0.2647059, g: 0.2647059, b: 0.2647059, a: 1}
+    - _PaintUV: {r: 0.8177391, g: 0.59160966, b: 0, a: 0}
+    - _SpotColor: {r: 0.2735849, g: 0.2735849, b: 0.2735849, a: 1}
