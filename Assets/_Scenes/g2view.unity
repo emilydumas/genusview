@@ -258,7 +258,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 2800000, guid: 1e3cf0f344468489c8ab12b818efd301, type: 3}
-  spotSize: 0.001
+  spotSize: 0.0002
   paintColor: {r: 0.2735849, g: 0.2735849, b: 0.2735849, a: 1}
 --- !u!1 &407840972
 GameObject:
