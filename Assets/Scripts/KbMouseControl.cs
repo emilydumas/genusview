@@ -64,31 +64,32 @@ public class KbMouseControl : MonoBehaviour {
 	void Update () {
 		float dt = Time.deltaTime;
 
-		if (Input.GetKeyDown(KeyCode.Escape)) {
+		if  ((Input.GetKey(KeyCode.RightControl) || Input.GetKey(KeyCode.LeftControl)) && Input.GetKeyDown(KeyCode.Q)) {
 			doQuit();
 		}
 
-		if (Input.GetKeyDown(KeyCode.H)) {
+		if (Input.GetKeyDown(KeyCode.H) || Input.GetKeyDown(KeyCode.F1)) {
 			helpScreen.ToggleVisibility();
+		}
+
+		if (Input.GetKeyDown(KeyCode.Escape)) {
+			helpScreen.Hide();
 		}
 
 		if (Input.GetKeyDown(KeyCode.Space)) {
 			ResetMousePos();
 			// Space bar toggles mode (walk/draw)
 			if (mouseMode == MouseMode.Look) {
-		//			stickInitQ = stickHolder.transform.localRotation;
 				mouseMode = MouseMode.Stick;
 				sb.makeVisible();
 			} else if (mouseMode == MouseMode.Stick) {
 				sb.makeInvisible();
 				mouseMode = MouseMode.Look;
-//				cameraInitQ = camera.transform.localRotation;
 			}
 		}
 
-		if (Input.GetKeyDown(KeyCode.LeftAlt) || Input.GetMouseButtonDown(1)) {
+		if (Input.GetKeyDown(KeyCode.LeftAlt) || Input.GetKeyDown(KeyCode.RightAlt) || Input.GetMouseButtonDown(1)) {
 			ResetMousePos();
-//			surfaceInitQ = surface.transform.localRotation;
 			savedMode = mouseMode;
 			if (mouseMode == MouseMode.Stick) {
 				sb.makeInvisible();
@@ -96,7 +97,7 @@ public class KbMouseControl : MonoBehaviour {
 			mouseMode = MouseMode.Rotate;
 			surfaceDelta = surface.transform.position - camera.transform.position; 
 		}
-		if (Input.GetKeyUp(KeyCode.LeftAlt) || Input.GetMouseButtonUp(1)) {
+		if (Input.GetKeyUp(KeyCode.LeftAlt) || Input.GetKeyUp(KeyCode.RightAlt) || Input.GetMouseButtonUp(1)) {
 			ResetMousePos();
 			mouseMode = savedMode;
 			if (mouseMode == MouseMode.Stick) {
@@ -116,7 +117,7 @@ public class KbMouseControl : MonoBehaviour {
 		camera.transform.Translate (horiz * dt, 0f, depth * dt);
 	    if (mouseMode == MouseMode.Rotate) {
 			surface.transform.position = camera.transform.position + surfaceDelta;
-		}		
+		}
 
 		if (mouseMode == MouseMode.Look) {
 			Vector2 mp = RelMousePos ();
