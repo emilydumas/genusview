@@ -16,7 +16,7 @@ Keybindings are described in the in-application help screen, which is accessed b
 
 ### For building
 
-* [Unity 3D](http://unity3d.com/version); developed in version 2018.2.1f1
+* [Unity 3D](http://unity3d.com/unity); developed in version 2018.2.1f1
 
 ### For running a binary release
 
