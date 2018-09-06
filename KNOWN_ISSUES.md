@@ -1,10 +1,10 @@
 # Problems (as of alpha release 0.4)
 
+* Poor performance
+  * The texture size and polygon count of the scene should allow high performance even on integrated graphics.  In practice, the framerate is low and input lag is noticeable.
+
 * Platform failures
   * Unity supports building for many platforms.  Windows and Linux work reasonably well, but MacOS builds are unusable due to poor performance (less than 1fps).  WebGL builds fail due to unknown shader problems.  The reasons for platform-specific failures are unknown at present.
-
-* Poor performance
-  * The texture size and polygon count of the scene should allow high performance even on integrated graphics.  In practice, the framerate is low and input lag is noticeable on some such machines, especially in Windows.  This may be due to the disabling of mipmaps on the main surface texture.
 
 # Feature requests, plans, thoughts
 
