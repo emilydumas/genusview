@@ -1,5 +1,7 @@
 # genusview
 
+![screenshot](images/screenshot-small.png)
+
 A utility for drawing on a genus two surface and its universal cover, which updates both pictures in real time.  This is meant to be used to understand the universal covering of a hyperbolic surface.  Developed in [Unity 3D](http://unity3d.com/unity).
 
 ## Status
