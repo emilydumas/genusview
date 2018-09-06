@@ -52,10 +52,16 @@ public class PaintableTexture : MonoBehaviour {
         paintUVPropertyID = Shader.PropertyToID("_PaintUV");
         spotColorPropertyID = Shader.PropertyToID("_SpotColor");
         spotSizePropertyID = Shader.PropertyToID("_SpotSize");
-
-        ReplaceTextureWithRenderTexture(target);
     }
 
+    private void Start() {
+        // Bugfix note: Previously we did this texture duplication in Awake(),
+        // but it seems that Awake() is sometimes called before texture loading
+        // is complete and this results in Graphics.Blit() writing black pixels
+        // to the RenderTexture.  Moving this initialization to Start() fixed
+        // that problem.
+        ReplaceTextureWithRenderTexture(target);
+    }
     private void ReplaceTextureWithRenderTexture(Texture t) {
     	// Create a new rendertexture like t
 		rt = new RenderTexture (t.width, t.height, 0, RenderTextureFormat.ARGB32, RenderTextureReadWrite.Linear);
