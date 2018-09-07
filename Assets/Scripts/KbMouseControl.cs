@@ -1,8 +1,23 @@
-﻿using System.Collections;
+﻿// Input manager for keyboard and mouse control
+
+// Detects keypresses or mouse movements and calls methods of other scripts in
+// the scene to activate the associated behavior.
+
+// Currently this script is linked to lots of other GameObjects through public
+// properties that need to be configured in the Editor.  It may be better to
+// configure some of these as singletons that this script can retrieve an
+// instance of at runtime.
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum MouseMode { Look, Stick, Rotate };
+// MouseMode controls what mouse movements affect:
+public enum MouseMode {
+	Look,   // horizontal direction of camera
+	Stick,  // position of the stick/laser
+	Rotate  // orientation of the genus two surface
+};
 
 public class KbMouseControl : MonoBehaviour {
 	public GameObject camera;
@@ -10,8 +25,8 @@ public class KbMouseControl : MonoBehaviour {
 	public GameObject surface;
 	public GameObject helpScreenParent;
 	public GameObject h2view;
-	public float turnRange = 180f;
-	public float stickRange = 90f;
+	public float turnRange = 180f;  // Mouse sensitivity for horizontal turns
+	public float stickRange = 90f;  // Laser/stick sensitivity
 	private StickBehavior sb;
 	private h2viewcontrol h2c;
 	private MouseMode mouseMode = MouseMode.Look;
@@ -40,6 +55,7 @@ public class KbMouseControl : MonoBehaviour {
 	}
 
 	void doQuit() {
+		// Exit the application (builds) or stop the player (editor)
 		#if UNITY_EDITOR
          UnityEditor.EditorApplication.isPlaying = false;
          #else
@@ -51,13 +67,19 @@ public class KbMouseControl : MonoBehaviour {
 		Cursor.lockState = CursorLockMode.None;
 	}
 
-	Vector2 RelMousePos() {
+	Vector2 AbsMousePos() {
+		// GetAxis mouse movement is reported as a delta by default
+		// Convert to absolute position
 		mpos.x += 20*Input.GetAxis("Mouse X") / Screen.width;
 		mpos.y += 20*Input.GetAxis("Mouse Y") / Screen.height;
 		return mpos;
 	}
 
 	void ResetMousePos() {
+		// Consider the current mouse position to be (0,0) but don't change the
+		// rotation of anything in the scene. Since (0,0) means "no rotation
+		// relative to the stored orientation" that means we must update the
+		// stored orientation.
 		mpos.x = 0f;
 		mpos.y = 0f;
 		stickInitQ = stickHolder.transform.localRotation;
@@ -93,6 +115,9 @@ public class KbMouseControl : MonoBehaviour {
 		}
 
 		if (Input.GetKeyDown(KeyCode.LeftAlt) || Input.GetKeyDown(KeyCode.RightAlt) || Input.GetMouseButtonDown(1)) {
+			// Alt or RMB means "temporarily activate rotate mode"
+			// Save current mode, make sure the stick/laser is hidden, and link
+			// mouse position to object orientation.
 			ResetMousePos();
 			savedMode = mouseMode;
 			if (mouseMode == MouseMode.Stick) {
@@ -102,6 +127,7 @@ public class KbMouseControl : MonoBehaviour {
 			surfaceDelta = surface.transform.position - camera.transform.position; 
 		}
 		if (Input.GetKeyUp(KeyCode.LeftAlt) || Input.GetKeyUp(KeyCode.RightAlt) || Input.GetMouseButtonUp(1)) {
+			// Alt or RMB release means restore previous mode
 			ResetMousePos();
 			mouseMode = savedMode;
 			if (mouseMode == MouseMode.Stick) {
@@ -110,10 +136,12 @@ public class KbMouseControl : MonoBehaviour {
 		}
 
 		if (Input.GetKeyDown(KeyCode.Z)) {
+			// Clear all drawing on the PaintableTexture
 			pt.Clear();
 		}
 
 		if (Input.GetKeyDown(KeyCode.K)) {
+			// Klein-Poincare toggle
 			h2c.Toggle();
 			h2c.ExportMode();
 		}
@@ -127,7 +155,7 @@ public class KbMouseControl : MonoBehaviour {
 		}
 
 		if (mouseMode == MouseMode.Look) {
-			Vector2 mp = RelMousePos ();
+			Vector2 mp = AbsMousePos ();
 			camera.transform.localRotation = cameraInitQ * Quaternion.Euler(0,turnRange*mp.x,0);
 		}
 		if (mouseMode == MouseMode.Stick) {
@@ -136,11 +164,12 @@ public class KbMouseControl : MonoBehaviour {
 			} else {
 				sb.stopDrawing();
 			}
-			Vector2 mp = RelMousePos ();
+			Vector2 mp = AbsMousePos ();
 			stickHolder.transform.localRotation = stickInitQ * Quaternion.Euler(-0.5f*stickRange*mp.y,0,-0.5f*stickRange*mp.x);
 		}
 		if (mouseMode == MouseMode.Rotate) {
-			Vector2 mp = RelMousePos ();
+			Vector2 mp = AbsMousePos ();
+			// TODO: Make this a more intuitive trackball-style object rotation interface.
 			surface.transform.localRotation = Quaternion.AngleAxis(turnRange*mp.y,camera.transform.right) * Quaternion.AngleAxis(-turnRange*mp.x,camera.transform.up) * surfaceInitQ;
 		}
 	}

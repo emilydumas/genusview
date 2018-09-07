@@ -1,8 +1,10 @@
 ﻿// Singleton that makes a RenderTexture copy of a given texture, and then tells
 // every GameObject using that texture to use the RenderTexture instead.
 
-// Missing feature: There is no support to add new GameObjects using the original Texture
-// in a script and still have them altered to replace with RenderTexture copy.
+// Missing feature: There is no support to add new GameObjects using the
+// original Texture in a script and still have them altered to replace with
+// RenderTexture copy.  All of the GameObjects that will use this texture must
+// already exist when the singleton is instantiated.
 
 using System.Collections;
 using System.Collections.Generic;

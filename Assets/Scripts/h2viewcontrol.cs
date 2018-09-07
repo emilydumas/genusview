@@ -1,4 +1,11 @@
-﻿using System.Collections;
+﻿// Script companion to the hypview shader which exposes the Poincare/Klein
+// shader properties as public member functions.
+
+// NOTE: Both the hypview shader (for drawing H^2 tiling) and the h2paint shader
+// (for adding a spot to the H^2 tiling) need to be set to the same mode at all
+// times!
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,8 +13,8 @@ public enum ViewMode { Poincare, Klein };
 
 public class h2viewcontrol : MonoBehaviour {
 	public ViewMode viewMode;
-	private Material m = null;
-	private Material pm = null;
+	private Material m = null;  // Target material with hypview shader
+	private Material pm = null;  // Target material with h2paint shader
 
 	void Start () {
 		Renderer r = gameObject.GetComponent<Renderer>();
@@ -31,6 +38,7 @@ public class h2viewcontrol : MonoBehaviour {
 	}
 
 	public void ExportMode() {
+		// Set the shader property to the current value of viewMode.
 		int p;
 
 		if (viewMode == ViewMode.Poincare) {

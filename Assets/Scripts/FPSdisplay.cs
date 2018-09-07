@@ -1,5 +1,6 @@
 // Display FPS in lower right of screen
 // Based on FPSDisplay by Dave Hampson (http://wiki.unity3d.com/index.php?title=FramesPerSecond)
+
 using UnityEngine;
 using System.Collections;
  
