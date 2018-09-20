@@ -220,6 +220,7 @@ MonoBehaviour:
   h2view: {fileID: 1675142549}
   turnRange: 180
   stickRange: 90
+  h2speed: 3
   speed: 10
   mouseSpeed: 4
 --- !u!4 &300956910
@@ -603,7 +604,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &717258883
 MonoBehaviour:
   m_ObjectHideFlags: 0

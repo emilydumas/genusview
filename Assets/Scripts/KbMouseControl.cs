@@ -27,6 +27,7 @@ public class KbMouseControl : MonoBehaviour {
 	public GameObject h2view;
 	public float turnRange = 180f;  // Mouse sensitivity for horizontal turns
 	public float stickRange = 90f;  // Laser/stick sensitivity
+	public float h2speed = 3f;
 	private StickBehavior sb;
 	private h2viewcontrol h2c;
 	private MouseMode mouseMode = MouseMode.Look;
@@ -140,11 +141,35 @@ public class KbMouseControl : MonoBehaviour {
 			pt.Clear();
 		}
 
-		if (Input.GetKeyDown(KeyCode.K)) {
+		if (Input.GetKeyDown(KeyCode.P)) {
 			// Klein-Poincare toggle
 			h2c.Toggle();
 			h2c.ExportMode();
 		}
+
+		if (Input.GetKeyDown(KeyCode.O)) {
+			// Reset view position
+			h2c.ResetPreTransformation();
+			h2c.ExportPreTransformation();
+		}
+		if (Input.GetKey(KeyCode.I)) {
+			h2c.ComposePreTransformation(HypUtil.BoostY(-h2speed*dt));
+			h2c.ExportPreTransformation();
+		}
+
+		if (Input.GetKey(KeyCode.K)) {
+			h2c.ComposePreTransformation(HypUtil.BoostY(h2speed*dt));
+			h2c.ExportPreTransformation();
+		}
+		if (Input.GetKey(KeyCode.J)) {
+			h2c.ComposePreTransformation(HypUtil.BoostX(h2speed*dt));
+			h2c.ExportPreTransformation();
+		}
+		if (Input.GetKey(KeyCode.L)) {
+			h2c.ComposePreTransformation(HypUtil.BoostX(-h2speed*dt));
+			h2c.ExportPreTransformation();
+		}
+
 
 		// Walk & strafe according to keyboard
 		float horiz = Input.GetAxis ("Horizontal") * speed;

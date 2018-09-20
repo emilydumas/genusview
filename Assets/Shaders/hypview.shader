@@ -17,6 +17,7 @@ Shader "Unlit/hypview"
 		Pass
 		{
 			Cull Off
+			
 			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag
@@ -41,6 +42,11 @@ Shader "Unlit/hypview"
 			sampler2D _MainTex;
 			float4 _MainTex_ST;
 			int _Poincare;
+
+			// Apply this transformation to the point before rendering
+			// Should be an element of SO(2,1)
+			// We store as 4x4 matrix since that is what Material.SetMatrix allows.
+			float4x4 _PreTransformation = float4x4(1, 0, 0, 0,   0, 1, 0, 0,   0, 0, 1, 0,  0, 0, 0, 1);
 			
 			v2f vert (appdata v)
 			{
@@ -68,6 +74,12 @@ Shader "Unlit/hypview"
 					xy = pcoef*xy;
 
 					float3 v = fromklein(xy);
+
+					// Promote v to 4-vector, transform, and demote
+					float4 v4 = float4(v.x,v.y,v.z,0);
+					v4 = mul(_PreTransformation,v4);
+					v = float3(v4.x,v4.y,v4.z);
+
 					vect_in_fund vf = tofund(v);
 					if (vf.coset != 255) {
 						uv = six_panel_vif_to_uv(vf);

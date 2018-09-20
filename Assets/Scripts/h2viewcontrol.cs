@@ -13,6 +13,7 @@ public enum ViewMode { Poincare, Klein };
 
 public class h2viewcontrol : MonoBehaviour {
 	public ViewMode viewMode;
+	private Matrix4x4 PreTransformation = Matrix4x4.identity;
 	private Material m = null;  // Target material with hypview shader
 	private Material pm = null;  // Target material with h2paint shader
 
@@ -27,6 +28,7 @@ public class h2viewcontrol : MonoBehaviour {
 		pm = pd.paintMaterial;
 
 		ExportMode();
+		ExportPreTransformation();
 	}
 
 	public void Toggle() {
@@ -53,5 +55,26 @@ public class h2viewcontrol : MonoBehaviour {
 			pm.SetInt("_Poincare",p);
 		}
 
+	}
+
+	public void ResetPreTransformation() {
+		SetPreTransformation(Matrix4x4.identity);
+	}
+
+	public void SetPreTransformation(Matrix4x4 T) {
+		PreTransformation = T;
+	}
+
+	public void ComposePreTransformation(Matrix4x4 T) {
+		PreTransformation = PreTransformation * T;
+	}
+
+	public void ExportPreTransformation() {
+		if (m != null) {
+			m.SetMatrix("_PreTransformation",PreTransformation);
+		}
+		if (pm != null) {
+			pm.SetMatrix("_PreTransformation",PreTransformation);
+		}
 	}
 }
