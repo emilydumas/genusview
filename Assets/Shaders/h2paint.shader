@@ -25,6 +25,11 @@ Shader "h2paint"
 			uniform float _SpotSize;
 			uniform int _Poincare;
 
+			// Apply this transformation to the point before rendering
+			// Should be an element of SO(2,1)
+			// We store as 4x4 matrix since that is what Material.SetMatrix allows.
+			float4x4 _PreTransformation = float4x4(1, 0, 0, 0,   0, 1, 0, 0,   0, 0, 1, 0,  0, 0, 0, 1);
+
 			#include "UnityCG.cginc"
 			#include "hyputil.cginc"
 			
@@ -45,6 +50,12 @@ Shader "h2paint"
 				xy = pcoef*xy;
 
 				float3 raw_spot_center = fromklein(xy);
+
+				// Promote raw_spot_center to 4-vector, transform, and demote
+				float4 v4 = float4(raw_spot_center.x,raw_spot_center.y,raw_spot_center.z,0);
+				v4 = mul(_PreTransformation,v4);
+				raw_spot_center = float3(v4.x,v4.y,v4.z);
+
 				vect_in_fund vifspot = tofund(raw_spot_center);
 				if (vifspot.coset > 5)
 					return col;

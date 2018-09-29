@@ -220,6 +220,7 @@ MonoBehaviour:
   h2view: {fileID: 1675142549}
   turnRange: 180
   stickRange: 90
+  h2speed: 3
   speed: 10
   mouseSpeed: 4
 --- !u!4 &300956910
