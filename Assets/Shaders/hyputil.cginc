@@ -90,11 +90,18 @@ static float3x3 fuchs[17] = {
 // 0         1         2         3         4         5
 // e         (1,2)     (1,2,3)   (2,3)     (3,2,1)   (1,3)
 
-// Table of left multiplication by {1,3,1,3}
-static uint perms[4][6] = { {1,0,5,4,3,2}, {5,4,3,2,1,0}, {1,0,5,4,3,2}, {5,4,3,2,1,0}};
+// Multiplication table in S3, s3prod[i][j] is  i * j
+static uint s3prod[6][6] = {
+    {0,1,2,3,4,5},
+    {1,0,5,4,3,2},
+    {2,3,4,5,0,1},
+    {3,2,1,0,5,4},
+    {4,5,0,1,2,3},
+    {5,4,3,2,1,0}
+};
 
 // Table of inverses in S3
-static uint s3inv[6] = {0,1, 4, 3, 2, 5};
+static uint s3inv[6] = {0, 1, 4, 3, 2, 5};
 
 // Tables of ratios; s3ratio[i][j] is  i * inverse(j)
 static uint s3ratio[6][6] = {
@@ -152,14 +159,13 @@ vect_in_fund tofund(float3 v0)
         for (k=0;k<4;k++) {
             if (minkdot(ret.v,sides[k]) < 0) {
                 ret.v = mul(fuchs[k],ret.v);
-                ret.coset = perms[k][ret.coset];
+                // The mysterious array index just means map 0,1,2,3 to 1,5,1,5
+                ret.coset = s3prod[ret.coset][1 + 4*(k % 2)];
                 break;
             }
         }
         if (k == 4) {
             // No reflections were applied. Success.
-            // But the coset label is inverted; fix that.
-            ret.coset = s3inv[ret.coset];
             return ret;
         }
         i++;
