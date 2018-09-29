@@ -180,7 +180,8 @@ vect_in_fund tofund(float3 v0)
 float2 six_panel_vif_to_uv(vect_in_fund vf)
 {
     // Retrieve the color from one of six panels inside a single texture
-    // MAJOR GOTCHA: The texture must NOT have mipmaps enabled!
+    // NOTE: if mipmaps are enabled, this scheme produces weird artifacts
+    // in the editor but NOT in the final build.
     float2 xy = toklein(vf.v);
     float2 uv0 = 0.3333333333333*0.5*(xy + 1.0);
     uv0 = uv0 + float2(0.3333333333333 * (vf.coset%3), 0.3333333333333 * (vf.coset/3));
