@@ -101,16 +101,17 @@ static uint s3prod[6][6] = {
 };
 
 // Table of inverses in S3
-static uint s3inv[6] = {0, 1, 4, 3, 2, 5};
+// Is not currently used!
+//   static uint s3inv[6] = {0, 1, 4, 3, 2, 5};
 
-// Tables of ratios; s3ratio[i][j] is  i * inverse(j)
+// Tables of ratios; s3ratio[i][j] is  inverse(i) * j
 static uint s3ratio[6][6] = {
-    {0,1,4,3,2,5},
-    {1,0,3,4,5,2},
-    {2,3,0,5,4,1},
-    {3,2,5,0,1,4},
-    {4,5,2,1,0,3},
-    {5,4,1,2,3,0}
+    {0,1,2,3,4,5},
+    {1,0,5,4,3,2},
+    {4,5,0,1,2,3},
+    {3,2,1,0,5,4},
+    {2,3,4,5,0,1},
+    {5,4,3,2,1,0}
 };
 
 // Suppose two points a,b are in tiles with relative position i
@@ -218,7 +219,7 @@ float hyp_quasi_dist(float3 v, float3 w)
 
 float g2_quasi_dist(vect_in_fund a, vect_in_fund b)
 {
-    uint i = s3ratio[s3inv[b.coset]][s3inv[a.coset]];
+    uint i = s3ratio[b.coset][a.coset];
     float d0 = hyp_quasi_dist(b.v,mul(fuchs[possible_closest[i][0]],a.v));
     float d1 = hyp_quasi_dist(b.v,mul(fuchs[possible_closest[i][1]],a.v));
     float d2 = hyp_quasi_dist(b.v,mul(fuchs[possible_closest[i][2]],a.v));
