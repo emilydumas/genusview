@@ -16,13 +16,15 @@ using UnityEngine;
 public enum MouseMode {
 	Look,   // horizontal direction of camera
 	Stick,  // position of the stick/laser
-	Rotate  // orientation of the genus two surface
+	Rotate,  // orientation of the genus two surface
+	RotateCP1 // orientation of the sphere / CP^1 display
 };
 
 public class KbMouseControl : MonoBehaviour {
 	public GameObject camera;
 	public GameObject stickHolder;
 	public GameObject surface;
+	public GameObject cp1;
 	public GameObject helpScreenParent;
 	public GameObject h2view;
 	public float turnRange = 180f;  // Mouse sensitivity for horizontal turns
@@ -32,10 +34,11 @@ public class KbMouseControl : MonoBehaviour {
 	private h2viewcontrol h2c;
 	private MouseMode mouseMode = MouseMode.Look;
 	private MouseMode savedMode = MouseMode.Look;
-	private Quaternion stickInitQ, cameraInitQ, surfaceInitQ;
+	private Quaternion stickInitQ, cameraInitQ, surfaceInitQ, cp1InitQ;
 	private PaintableTexture pt = null;
 	private HelpScreen helpScreen;
 	private Vector3 surfaceDelta;
+	private Vector3 cp1Delta;
 
 	public float speed = 10.0f;
 	public float mouseSpeed = 4.0f;
@@ -86,6 +89,7 @@ public class KbMouseControl : MonoBehaviour {
 		stickInitQ = stickHolder.transform.localRotation;
 		cameraInitQ = camera.transform.localRotation;
 		surfaceInitQ = surface.transform.localRotation;
+		cp1InitQ = cp1.transform.localRotation;
 	}
 
 	void Update () {
@@ -124,8 +128,13 @@ public class KbMouseControl : MonoBehaviour {
 			if (mouseMode == MouseMode.Stick) {
 				sb.makeInvisible();
 			}
-			mouseMode = MouseMode.Rotate;
-			surfaceDelta = surface.transform.position - camera.transform.position; 
+			if (Input.GetKeyDown(KeyCode.RightAlt)) {
+				mouseMode = MouseMode.RotateCP1;
+				cp1Delta = cp1.transform.position - camera.transform.position; 
+			} else {
+				mouseMode = MouseMode.Rotate;
+				surfaceDelta = surface.transform.position - camera.transform.position;
+			}
 		}
 		if (Input.GetKeyUp(KeyCode.LeftAlt) || Input.GetKeyUp(KeyCode.RightAlt) || Input.GetMouseButtonUp(1)) {
 			// Alt or RMB release means restore previous mode
@@ -197,5 +206,11 @@ public class KbMouseControl : MonoBehaviour {
 			// TODO: Make this a more intuitive trackball-style object rotation interface.
 			surface.transform.localRotation = Quaternion.AngleAxis(turnRange*mp.y,camera.transform.right) * Quaternion.AngleAxis(-turnRange*mp.x,camera.transform.up) * surfaceInitQ;
 		}
+		if (mouseMode == MouseMode.RotateCP1) {
+			Vector2 mp = AbsMousePos ();
+			// TODO: Make this a more intuitive trackball-style object rotation interface.
+			cp1.transform.localRotation = Quaternion.AngleAxis(turnRange*mp.y,camera.transform.right) * Quaternion.AngleAxis(-turnRange*mp.x,camera.transform.up) * cp1InitQ;
+		}
+
 	}
 }

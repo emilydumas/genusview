@@ -282,6 +282,7 @@ MonoBehaviour:
   camera: {fileID: 534669902}
   stickHolder: {fileID: 1766946991}
   surface: {fileID: 175034025}
+  cp1: {fileID: 941343272}
   helpScreenParent: {fileID: 717258882}
   h2view: {fileID: 1675142549}
   turnRange: 180
@@ -976,6 +977,11 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 920476756}
   m_CullTransparentMesh: 0
+--- !u!1 &941343272 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 8212a3d847cc33c4a9bdfb8b2504c78c,
+    type: 3}
+  m_PrefabInternal: {fileID: 220283279}
 --- !u!1 &1130787099
 GameObject:
   m_ObjectHideFlags: 0
